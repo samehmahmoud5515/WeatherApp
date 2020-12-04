@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ForecastProtocol {
-    func fetchWeatherForcast(for city: String, completion: ((Result<ForecastResponse, Error>) -> Void)?)
+    func fetchWeatherForcast(for city: String, completion: ((Result<[Forecast], Error>) -> Void)?)
 }
 
 extension ForecastProtocol {

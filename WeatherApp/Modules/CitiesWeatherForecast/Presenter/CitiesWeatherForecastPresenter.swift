@@ -9,16 +9,14 @@
 import Foundation
 
 
-class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
-
+class CitiesWeatherForecastPresenter: NSObject, CitiesWeatherForecastPresenterProtocol {
+    
     weak var view: CitiesWeatherForecastViewProtocol?
 
     func viewDidLoad() {
 
         
-        
     }
     
     
 }
-
