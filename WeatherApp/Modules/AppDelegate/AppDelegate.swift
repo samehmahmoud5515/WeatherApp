@@ -11,11 +11,20 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        configureInitViewController()
+        
         return true
+    }
+    
+    func configureInitViewController() {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController(rootViewController: CitiesWeatherForecastViewController())
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
 
 
