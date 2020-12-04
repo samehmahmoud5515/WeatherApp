@@ -13,7 +13,7 @@ protocol CitiesWeatherForecastViewProtocol: class {
 }
 
 // MARK: Presenter -
-protocol CitiesWeatherForecastPresenterProtocol: class {
+protocol CitiesWeatherForecastPresenterProtocol: ForecastProtocol {
     var view: CitiesWeatherForecastViewProtocol? { get set }
     func viewDidLoad()
 }
