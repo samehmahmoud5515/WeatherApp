@@ -15,3 +15,13 @@ extension String {
         return dateFormatter.date(from: self)
     }
 }
+
+
+extension String {
+    func contains(_ string: String, caseSensitive: Bool = true) -> Bool {
+        if !caseSensitive {
+            return range(of: string, options: .caseInsensitive) != nil
+        }
+        return range(of: string) != nil
+    }
+}

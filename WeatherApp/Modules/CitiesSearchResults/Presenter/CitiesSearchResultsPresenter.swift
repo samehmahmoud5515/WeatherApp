@@ -37,7 +37,7 @@ extension CitiesSearchResultsPresenter {
     }
     
     func searchCities(with searchText: String) {
-        filteredCities = allCities.filter { $0.contains(searchText) }
+        filteredCities = allCities.filter { $0.contains(searchText, caseSensitive: false) }
     }
     
     func configure(cell: CitiesSearchResultsCellProtocol, row: Int) {
