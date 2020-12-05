@@ -23,6 +23,7 @@ extension ForecastEndpoint: EndPoint {
         case let .forecast(city):
             params += ["q": city]
             params += ["appid": weatherAPIKey]
+            params += ["units": "metric"]
         }
         return params
     }

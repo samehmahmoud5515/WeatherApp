@@ -19,5 +19,9 @@ protocol CitiesSearchResultsPresenterProtocol: CitiesProtocol {
     func viewDidLoad()
     func searchCities(with searchText: String)
     func configure(cell: CitiesSearchResultsCellProtocol, row: Int)
+    func didTapOnCell(cell: CitiesSearchResultsCellProtocol, row: Int)
 }
 
+protocol CitiesSearchResultsDelegate {
+    func didSelectCity(with name: String)
+}

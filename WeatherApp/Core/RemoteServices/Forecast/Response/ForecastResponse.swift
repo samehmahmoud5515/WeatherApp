@@ -36,15 +36,24 @@ struct Forecast: Codable {
     var weather: [Weather]?
     var clouds: Clouds?
     var wind: Wind?
-    var visibility: Int?
-    var pop: Double?
-    var rain: Rain?
+    var visibility, pop: Int?
     var sys: Sys?
     var dtTxt: String?
 
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather, clouds, wind, visibility, pop, rain, sys
+        case dt, main, weather, clouds, wind, visibility, pop, sys
         case dtTxt = "dt_txt"
+    }
+}
+
+extension Forecast {
+    var date: Date? {
+        guard let dateText = dtTxt else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        return dateFormatter.date(from: dateText)
     }
 }
 
@@ -69,15 +78,6 @@ struct MainClass: Codable {
         case grndLevel = "grnd_level"
         case humidity
         case tempKf = "temp_kf"
-    }
-}
-
-// MARK: - Rain
-struct Rain: Codable {
-    var the3H: Double?
-
-    enum CodingKeys: String, CodingKey {
-        case the3H = "3h"
     }
 }
 
@@ -106,14 +106,14 @@ struct Weather: Codable {
 }
 
 enum MainEnum: String, Codable {
+    case clear = "Clear"
     case clouds = "Clouds"
-    case rain = "Rain"
 }
 
 enum Description: String, Codable {
     case brokenClouds = "broken clouds"
+    case clearSky = "clear sky"
     case fewClouds = "few clouds"
-    case lightRain = "light rain"
     case overcastClouds = "overcast clouds"
     case scatteredClouds = "scattered clouds"
 }

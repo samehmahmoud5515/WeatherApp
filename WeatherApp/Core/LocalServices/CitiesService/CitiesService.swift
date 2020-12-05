@@ -8,7 +8,6 @@
 import Foundation
 
 typealias Cities = [String]
-//typealias Countries = [[String: [String]]]
 
 class CitiesService {
     func loadAllCities() -> Cities? {

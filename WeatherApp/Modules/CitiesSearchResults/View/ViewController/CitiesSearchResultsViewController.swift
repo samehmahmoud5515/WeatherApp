@@ -16,9 +16,9 @@ class CitiesSearchResultsViewController: UIViewController {
     //Attribites
 	var presenter: CitiesSearchResultsPresenterProtocol?
 
-    init() {
+    init(delegate: CitiesSearchResultsDelegate) {
         super.init(nibName: "\(CitiesSearchResultsViewController.self)", bundle: nil)
-        presenter = CitiesSearchResultsPresenter(view: self)
+        presenter = CitiesSearchResultsPresenter(view: self, delegate: delegate)
     }
 
     @available(*, unavailable)
@@ -68,6 +68,12 @@ extension CitiesSearchResultsViewController: UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(CitiesSearchResultsCell.self)", for: indexPath) as? CitiesSearchResultsCell ?? CitiesSearchResultsCell()
         presenter?.configure(cell: cell, row: indexPath.row)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? CitiesSearchResultsCell {
+            presenter?.didTapOnCell(cell: cell, row: indexPath.row)
+        }
     }
 }
 

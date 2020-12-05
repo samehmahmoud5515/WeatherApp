@@ -13,12 +13,11 @@ class CitiesWeatherForecastViewController: UIViewController, CitiesWeatherForeca
     @IBOutlet weak var tableView: UITableView!
 
     //Attribities
-	var presenter: CitiesWeatherForecastPresenterProtocol
+	var presenter: CitiesWeatherForecastPresenterProtocol?
 
 	init() {
-        presenter = CitiesWeatherForecastPresenter()
         super.init(nibName: "\(CitiesWeatherForecastViewController.self)", bundle: nil)
-        presenter.view = self
+        presenter = CitiesWeatherForecastPresenter(view: self)
     }
 
     @available(*, unavailable)
@@ -29,7 +28,7 @@ class CitiesWeatherForecastViewController: UIViewController, CitiesWeatherForeca
 	override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter.viewDidLoad()
+        presenter?.viewDidLoad()
         setupUI()
     }
 
@@ -42,12 +41,21 @@ extension CitiesWeatherForecastViewController {
     }
     
     private func addSearchController() {
-        let searchResultsVc = CitiesSearchResultsViewController()
+        let searchResultsVc = CitiesSearchResultsViewController(delegate: self)
         let searchController = UISearchController(searchResultsController: searchResultsVc)
         searchController.searchResultsUpdater = searchResultsVc
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search artists"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+}
+
+extension CitiesWeatherForecastViewController: CitiesSearchResultsDelegate {
+    func didSelectCity(with name: String) {
+        navigationItem.searchController?.searchResultsController?.dismiss(animated: true, completion: { [weak self] in
+            let vc = CityWeatherForecastDetailsViewController(cityName: name)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        })
     }
 }

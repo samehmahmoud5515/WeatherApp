@@ -7,16 +7,36 @@
 //
 
 import Foundation
+import CoreLocation
 
-
-class CitiesWeatherForecastPresenter: NSObject, CitiesWeatherForecastPresenterProtocol {
+class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
     
     weak var view: CitiesWeatherForecastViewProtocol?
+    
+    lazy var locationProvider: UserLocationProvider = {
+        UserLocationService()
+    }()
+    
+    init(view: CitiesWeatherForecastViewProtocol) {
+        self.view = view
+    }
 
     func viewDidLoad() {
-
-        
+        requestUserLocation()
     }
     
+    func requestUserLocation() {
+        locationProvider.findUserLocation { [weak self] location, error in
+            if let location = location?.coordinate {
+                self?.reverseUserLocation(location: location)
+            } else {
+                
+            }
+        }
+    }
+    
+    func reverseUserLocation(location: Coordinate) {
+        
+    }
     
 }

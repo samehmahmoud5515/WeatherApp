@@ -17,6 +17,6 @@ extension EnvironmentProtocol {
     }
     
     var baseUrl: String {
-        "api.openweathermap.org/data/2.5/"
+        "https://api.openweathermap.org/data/2.5/"
     }
 }
