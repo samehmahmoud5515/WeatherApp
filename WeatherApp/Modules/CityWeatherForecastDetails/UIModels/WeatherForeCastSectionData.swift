@@ -1,5 +1,5 @@
 //
-//  SectionData.swift
+//  WeatherForeCastSectionData.swift
 //  WeatherApp
 //
 //  Created by sameh on 12/5/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SectionData {
+struct WeatherForeCastSectionData {
     let title: String
     let data : [WeatherForeCastUIModel]
 
