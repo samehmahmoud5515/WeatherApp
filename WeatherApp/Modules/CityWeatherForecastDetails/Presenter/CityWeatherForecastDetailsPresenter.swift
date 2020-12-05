@@ -126,6 +126,7 @@ extension CityWeatherForecastDetailsPresenter {
         if let cityForecast = cityForecast {
             CityForecastDatabaseService.shared.save(cityForecast: cityForecast)
             view?.setupDeleteRightBarButtonItem()
+            UserDefaults(suiteName: "WeatherApp")!.set("\(cityForecast.list?.first?.main?.temp ?? 0.0)", forKey: "temp")
         }
     }
     
