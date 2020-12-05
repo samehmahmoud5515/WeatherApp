@@ -14,7 +14,7 @@ class ReverseGeocodeService {
             guard let placemark = placemark, error == nil else {
                 return
             }
-            completion?(.success(placemark.first?.country ?? ""))
+            completion?(.success(placemark.first?.administrativeArea ?? ""))
         }
     }
 }

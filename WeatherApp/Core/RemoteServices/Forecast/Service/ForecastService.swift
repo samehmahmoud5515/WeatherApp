@@ -8,7 +8,7 @@
 import Foundation
 
 class ForecastService: APIService<ForecastEndpoint> {
-    func fetchWeatherForcast(for city: String, completion: ((Result<ForecastResponse, Error>) -> Void)?) {
+    func fetchWeatherForcast(for city: String, completion: ((Result<CityForecast, Error>) -> Void)?) {
         sendRequest(target: .forecast(city: city), completion: completion)
     }
 }

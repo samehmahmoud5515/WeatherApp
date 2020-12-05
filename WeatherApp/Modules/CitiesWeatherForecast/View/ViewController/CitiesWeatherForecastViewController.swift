@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CitiesWeatherForecastViewController: UIViewController, CitiesWeatherForecastViewProtocol {
+class CitiesWeatherForecastViewController: UIViewController {
     
     //Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -38,6 +38,8 @@ class CitiesWeatherForecastViewController: UIViewController, CitiesWeatherForeca
 extension CitiesWeatherForecastViewController {
     private func setupUI() {
         addSearchController()
+        registerTableViewCell()
+        setupTableViewRowHeight()
     }
     
     private func addSearchController() {
@@ -45,12 +47,22 @@ extension CitiesWeatherForecastViewController {
         let searchController = UISearchController(searchResultsController: searchResultsVc)
         searchController.searchResultsUpdater = searchResultsVc
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search artists"
+        searchController.searchBar.placeholder = "Search Cities"
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
+    
+    private func registerTableViewCell() {
+        let nib = UINib(nibName: "\(CitiesWeatherForecastCell.self)", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "\(CitiesWeatherForecastCell.self)")
+    }
+    
+    private func setupTableViewRowHeight() {
+        tableView.rowHeight = 44
+    }
 }
 
+// MARK: - CitiesSearchResultsDelegate
 extension CitiesWeatherForecastViewController: CitiesSearchResultsDelegate {
     func didSelectCity(with name: String) {
         navigationItem.searchController?.searchResultsController?.dismiss(animated: true, completion: { [weak self] in
@@ -59,3 +71,33 @@ extension CitiesWeatherForecastViewController: CitiesSearchResultsDelegate {
         })
     }
 }
+ 
+// MARK: - UITableViewDataSource - UITableViewDelegate
+extension CitiesWeatherForecastViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter?.numberOfItemsInDatasource ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(CitiesWeatherForecastCell.self)", for: indexPath) as? CitiesWeatherForecastCell ?? CitiesWeatherForecastCell()
+        presenter?.configureCell(cell: cell, with: indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectCell(at: indexPath.row)
+    }
+}
+
+// MARK:- CitiesWeatherForecastViewProtocol
+extension CitiesWeatherForecastViewController: CitiesWeatherForecastViewProtocol {
+    func notifiyDataChanging() {
+        tableView.reloadData()
+    }
+    
+    func navigateToCityForecast(with cityName: String) {
+        let vc = CityWeatherForecastDetailsViewController(cityName: cityName)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}
+

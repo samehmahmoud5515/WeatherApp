@@ -21,7 +21,7 @@ extension ForecastProtocol {
                     completion?(.success(groupWithDate(forecast: forecastList)))
                 }
             case let .failure(error):
-                break
+                print(error)
             }
         }
     }
