@@ -301,10 +301,10 @@
 		5000E87B257A19FD005C5AF9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				5074D870257A7B6200DA063D /* CityWeatherForecastDetails */,
 				5000E87C257A1A0E005C5AF9 /* AppDelegate */,
 				50535739257A597B00E0AF1B /* CitiesSearchResults */,
 				505356F5257A3B4700E0AF1B /* CitiesWeatherForecast */,
+				5074D870257A7B6200DA063D /* CityWeatherForecastDetails */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -593,7 +593,6 @@
 				50535692257A23A000E0AF1B /* Core */,
 				5000E86D257A1964005C5AF9 /* Resources */,
 				5000E87B257A19FD005C5AF9 /* Modules */,
-				50535C52257A17A10031B5AB /* WeatherApp.xcdatamodeld */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -749,6 +748,7 @@
 		508B3DF8257BF1740069B83B /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				50535C52257A17A10031B5AB /* WeatherApp.xcdatamodeld */,
 				508B3D83257BB7F70069B83B /* ForecastDetailsEntity.swift */,
 				508B3D85257BB7F70069B83B /* WeatherEntity.swift */,
 				508B3D87257BB7F70069B83B /* WindEntity.swift */,
