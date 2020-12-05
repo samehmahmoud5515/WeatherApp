@@ -21,5 +21,6 @@ protocol CitiesWeatherForecastPresenterProtocol: ForecastProtocol {
     var numberOfItemsInDatasource: Int { get }
     func configureCell(cell: CitiesWeatherForecastCellProtocol, with row: Int)
     func didSelectCell(at row: Int)
+    func didDeleteCell(at index: Int) 
     func fetchAllCitiesForecasts()
 }

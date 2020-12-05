@@ -91,4 +91,13 @@ class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
         }
     }
     
+    func didDeleteCell(at index: Int) {
+        let forecast = citiesForecasts[index]
+        guard let cityName = forecast.city?.name else { return }
+        //Remove From database
+        CityForecastDatabaseService.shared.delete(with: cityName)
+        //Remove from  datesource model
+        citiesForecasts.remove(at: index)
+    }
+        
 }

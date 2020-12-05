@@ -93,6 +93,17 @@ extension CitiesWeatherForecastViewController: UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter?.didSelectCell(at: indexPath.row)
     }
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            presenter?.didDeleteCell(at: indexPath.row)
+        }
+    }
 }
 
 // MARK:- CitiesWeatherForecastViewProtocol
