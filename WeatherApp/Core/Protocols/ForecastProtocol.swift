@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import CoreData
-import UIKit
 
 protocol ForecastProtocol {
     func fetchWeatherForcast(for city: String, completion: ((Result<CityForecast, Error>) -> Void)?)
