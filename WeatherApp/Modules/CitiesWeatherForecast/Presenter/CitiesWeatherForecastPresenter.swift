@@ -32,10 +32,22 @@ class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
     }
 
     func viewDidLoad() {
-        requestUserLocation()
+        fetchAllCitiesForecasts()
+        handleRequestLocationIncaseEmptyForecasts()
     }
     
-    func requestUserLocation() {
+    func fetchAllCitiesForecasts() {
+        let forecasts = CityForecastDatabaseService.shared.fetchAllForecasts()
+        citiesForecasts = forecasts
+    }
+    
+    private func handleRequestLocationIncaseEmptyForecasts() {
+        if citiesForecasts.isEmpty {
+            requestUserLocation()
+        }
+    }
+    
+    private func requestUserLocation() {
         locationProvider.findUserLocation { [weak self] result in
             switch result {
             case let .success(coordinate):
@@ -47,7 +59,7 @@ class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
         }
     }
     
-    func reverseUserLocation(location: Coordinate) {
+    private func reverseUserLocation(location: Coordinate) {
         locationProvider.reverseGeocodeToCountry(coordinate: location) { [weak self] result in
             switch result {
             case let .success(city):
@@ -71,8 +83,11 @@ class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
     
     func didSelectCell(at row: Int) {
         let cityForecast = citiesForecasts[row]
-        if cityForecast.list == nil, let name = cityForecast.city?.name {
+        guard let name = cityForecast.city?.name else { return }
+        if cityForecast.list == nil {
             view?.navigateToCityForecast(with: name)
+        } else {
+            view?.navigateToCityForecast(with: name, cityForecast: cityForecast)
         }
     }
     

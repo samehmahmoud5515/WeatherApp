@@ -11,6 +11,7 @@ import Foundation
 protocol CitiesWeatherForecastViewProtocol: class {
     func notifiyDataChanging()
     func navigateToCityForecast(with cityName: String)
+    func navigateToCityForecast(with cityName: String, cityForecast: CityForecast)
 }
 
 // MARK: Presenter -
@@ -20,4 +21,5 @@ protocol CitiesWeatherForecastPresenterProtocol: ForecastProtocol {
     var numberOfItemsInDatasource: Int { get }
     func configureCell(cell: CitiesWeatherForecastCellProtocol, with row: Int)
     func didSelectCell(at row: Int)
+    func fetchAllCitiesForecasts()
 }

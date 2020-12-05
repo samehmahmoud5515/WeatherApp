@@ -17,9 +17,9 @@ class CityWeatherForecastDetailsViewController: UIViewController {
     // Attribuites
 	var presenter: CityWeatherForecastDetailsPresenterProtocol?
 
-    init(cityName: String) {
+    init(cityName: String, cityForecast: CityForecast? = nil) {
         super.init(nibName: "\(CityWeatherForecastDetailsViewController.self)", bundle: nil)
-        self.presenter = CityWeatherForecastDetailsPresenter(view: self, cityName: cityName)
+        self.presenter = CityWeatherForecastDetailsPresenter(view: self, cityName: cityName, cityForecast: cityForecast)
     }
 
     @available(*, unavailable)
@@ -63,6 +63,10 @@ extension CityWeatherForecastDetailsViewController {
     
     @objc func deleteCityForecast() {
         presenter?.deleteCityForecast()
+    }
+    
+    func setupViewTitle(with text: String) {
+        title = text
     }
 }
 

@@ -31,13 +31,18 @@ class CitiesWeatherForecastViewController: UIViewController {
         presenter?.viewDidLoad()
         setupUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addSearchController()
+        presenter?.fetchAllCitiesForecasts()
+    }
 
 }
 
 // MARK:- UI Setup
 extension CitiesWeatherForecastViewController {
     private func setupUI() {
-        addSearchController()
         registerTableViewCell()
         setupTableViewRowHeight()
     }
@@ -48,6 +53,7 @@ extension CitiesWeatherForecastViewController {
         searchController.searchResultsUpdater = searchResultsVc
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Cities"
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -97,6 +103,11 @@ extension CitiesWeatherForecastViewController: CitiesWeatherForecastViewProtocol
     
     func navigateToCityForecast(with cityName: String) {
         let vc = CityWeatherForecastDetailsViewController(cityName: cityName)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func navigateToCityForecast(with cityName: String, cityForecast: CityForecast) {
+        let vc = CityWeatherForecastDetailsViewController(cityName: cityName, cityForecast: cityForecast)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

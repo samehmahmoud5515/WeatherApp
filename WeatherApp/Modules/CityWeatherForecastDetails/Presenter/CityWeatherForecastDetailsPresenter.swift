@@ -19,21 +19,40 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
         }
     }
     
-    init(view: CityWeatherForecastDetailsViewProtocol, cityName: String) {
+    init(view: CityWeatherForecastDetailsViewProtocol, cityName: String, cityForecast: CityForecast? = nil) {
         self.view = view
         self.cityName = cityName
+        self.cityForecast = cityForecast
     }
 
     func viewDidLoad() {
-        let cityForecastObj = CityForecastDatabaseService.shared.fetch(with: cityName)
-        
-        if cityForecastObj == nil {
+        setupViewTitle()
+        loadCityForecastFromDatabase()
+        handleCityForecastInCaseIsEmpty()
+        handleCityForecastInCaseNotEmpty()
+    }
+    
+    private func setupViewTitle() {
+        view?.setupViewTitle(with: cityName)
+    }
+    
+    private func loadCityForecastFromDatabase() {
+        if cityForecast == nil {
+            cityForecast = CityForecastDatabaseService.shared.fetch(with: cityName)
+        }
+    }
+    
+    private func handleCityForecastInCaseIsEmpty() {
+        if cityForecast == nil {
             view?.setupAddRightBarButtonItem()
             view?.startActivityIndicator()
             fetchWeatherForecast()
-        } else {
-            buildDatasource(forecastList: cityForecastObj?.list ?? [])
-            cityForecast = cityForecastObj
+        }
+    }
+    
+    private func handleCityForecastInCaseNotEmpty() {
+        if cityForecast != nil {
+            buildDatasource(forecastList: cityForecast?.list ?? [])
             view?.setupDeleteRightBarButtonItem()
         }
     }
@@ -95,28 +114,5 @@ extension CityWeatherForecastDetailsPresenter {
             CityForecastDatabaseService.shared.delete(with: city)
             view?.setupAddRightBarButtonItem()
         }
-    }
-}
-
-struct SectionData {
-    let title: String
-    let data : [WeatherForeCastUIModel]
-
-    var numberOfItems: Int {
-        return data.count
-    }
-
-    subscript(index: Int) -> WeatherForeCastUIModel {
-        return data[index]
-    }
-}
-
-struct WeatherForeCastUIModel {
-    let title: String
-    let value: String
-    
-    init(_ title: String, value: String) {
-        self.title = title
-        self.value = value
     }
 }
