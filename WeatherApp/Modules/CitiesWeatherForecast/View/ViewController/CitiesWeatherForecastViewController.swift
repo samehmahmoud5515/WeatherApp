@@ -14,6 +14,7 @@ class CitiesWeatherForecastViewController: UIViewController {
 
     //Attribities
 	var presenter: CitiesWeatherForecastPresenterProtocol?
+    let localizer = CitiesWeatherForecastLocalizer()
 
 	init() {
         super.init(nibName: "\(CitiesWeatherForecastViewController.self)", bundle: nil)
@@ -43,8 +44,13 @@ class CitiesWeatherForecastViewController: UIViewController {
 // MARK:- UI Setup
 extension CitiesWeatherForecastViewController {
     private func setupUI() {
+        setupViewTitle()
         registerTableViewCell()
         setupTableViewRowHeight()
+    }
+    
+    private func setupViewTitle() {
+        title = localizer.citiesWetherForecast
     }
     
     private func addSearchController() {
@@ -52,7 +58,7 @@ extension CitiesWeatherForecastViewController {
         let searchController = UISearchController(searchResultsController: searchResultsVc)
         searchController.searchResultsUpdater = searchResultsVc
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Cities"
+        searchController.searchBar.placeholder = localizer.searchCities
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
