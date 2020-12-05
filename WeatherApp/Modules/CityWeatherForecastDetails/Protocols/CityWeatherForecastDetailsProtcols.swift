@@ -14,7 +14,8 @@ protocol CityWeatherForecastDetailsViewProtocol: class {
     func startActivityIndicator()
     func setupAddRightBarButtonItem() 
     func setupDeleteRightBarButtonItem()
-    func setupViewTitle(with text: String) 
+    func setupViewTitle(with text: String)
+    func displayAlert(with title: String, message: String, firstActionTitle: String, secondActionTitle: String, firstActionCompletion: (()->Void)?)
 }
 
 // MARK: Presenter -

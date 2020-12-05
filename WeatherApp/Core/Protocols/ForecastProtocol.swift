@@ -25,7 +25,7 @@ extension ForecastProtocol {
                     completion?(.success(updatedForecast))
                 }
             case let .failure(error):
-                print(error)
+                completion?(.failure(error))
             }
         }
     }

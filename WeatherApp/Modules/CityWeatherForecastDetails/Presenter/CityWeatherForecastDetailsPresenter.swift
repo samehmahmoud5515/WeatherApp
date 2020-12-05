@@ -13,11 +13,12 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
     weak var view: CityWeatherForecastDetailsViewProtocol?
     private var cityName: String
     private var cityForecast: CityForecast?
-    private var forecastDatasource = [SectionData]() {
+    private var forecastDatasource = [WeatherForeCastSectionData]() {
         didSet {
             view?.notifyDataChange()
         }
     }
+    private let localizer = CityWeatherForecastDetailsLocalizer()
     
     init(view: CityWeatherForecastDetailsViewProtocol, cityName: String, cityForecast: CityForecast? = nil) {
         self.view = view
@@ -45,7 +46,6 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
     private func handleCityForecastInCaseIsEmpty() {
         if cityForecast == nil {
             view?.setupAddRightBarButtonItem()
-            view?.startActivityIndicator()
             fetchWeatherForecast()
         }
     }
@@ -58,30 +58,50 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
     }
     
     private func fetchWeatherForecast() {
+        view?.startActivityIndicator()
         fetchWeatherForcast(for: cityName) { [weak self] result in
             switch result {
             case let .success(forecast):
                 self?.buildDatasource(forecastList: forecast.list ?? [])
                 self?.cityForecast = forecast
             case let .failure(error):
-                print(error)
+                self?.handleFetchWeatherForcast(error)
             }
             self?.view?.stopActivityIndicator()
         }
     }
     
     private func buildDatasource(forecastList: [Forecast]) {
-        let sectionData = forecastList.map { SectionData(title: $0.date?.toDateString ?? "", data: buidWeatherForecastFromForcast(forcast: $0)) }
+        let sectionData = forecastList.map { WeatherForeCastSectionData(title: $0.date?.toDateString ?? "", data: buidWeatherForecastFromForcast(forcast: $0)) }
         forecastDatasource = sectionData
     }
     
     private func buidWeatherForecastFromForcast(forcast: Forecast) -> [WeatherForeCastUIModel] {
-        return [WeatherForeCastUIModel("Min Temp", value: "\(forcast.main?.tempMin ?? 0.0)"),
-                WeatherForeCastUIModel("max Temp", value: "\(forcast.main?.tempMax ?? 0.0)"),
-                WeatherForeCastUIModel("humidityp", value: "\(forcast.main?.humidity ?? 0)"),
-                WeatherForeCastUIModel("pressure", value: "\(forcast.main?.pressure ?? 0)"),
-                //WeatherForeCastUIModel("seaLevel", value: "\(forcast.main?. ?? 0)"),
+        return [WeatherForeCastUIModel(localizer.minTemp, value: "\(forcast.main?.tempMin ?? 0.0) \(localizer.celsius)"),
+                WeatherForeCastUIModel(localizer.maxTemp, value: "\(forcast.main?.tempMax ?? 0.0) \(localizer.celsius)"),
+                WeatherForeCastUIModel(localizer.humidity, value: "\(forcast.main?.humidity ?? 0)"),
+                WeatherForeCastUIModel(localizer.pressure, value: "\(forcast.main?.pressure ?? 0)"),
+                WeatherForeCastUIModel(localizer.windSpeed, value: "\(forcast.wind?.speed ?? 0.0) \(localizer.meter)"),
         ]
+    }
+    
+    private func handleFetchWeatherForcast(_ error: Error) {
+        switch error {
+        case WAError.connection, WAError.internet:
+            view?.displayAlert(with: localizer.errorHappenedTitle, message: localizer.internetError, firstActionTitle: localizer.retry, secondActionTitle: localizer.cancel, firstActionCompletion: { [weak self] in
+                self?.fetchWeatherForecast()
+            })
+        case let WAError.underlying(_, message):
+            view?.displayAlert(with: localizer.errorHappenedTitle, message: message, firstActionTitle: localizer.retry, secondActionTitle: localizer.cancel, firstActionCompletion: { [weak self] in
+                self?.fetchWeatherForecast()
+            })
+        case WAError.parsing:
+            view?.displayAlert(with: localizer.errorHappenedTitle, message: localizer.parsingError, firstActionTitle: localizer.retry, secondActionTitle: localizer.cancel, firstActionCompletion: { [weak self] in
+                self?.fetchWeatherForecast()
+            })
+        default:
+            break
+        }
     }
 }
 
