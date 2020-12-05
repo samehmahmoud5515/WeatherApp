@@ -50,11 +50,11 @@ extension CityWeatherForecastDetailsViewController {
     }
     
     func setupAddRightBarButtonItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(saveCityForecast))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(saveCityForecast))
     }
     
     func setupDeleteRightBarButtonItem() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(deleteCityForecast))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteCityForecast))
     }
     
     @objc func saveCityForecast() {
@@ -106,6 +106,21 @@ extension CityWeatherForecastDetailsViewController: CityWeatherForecastDetailsVi
     func stopActivityIndicator() {
         DispatchQueue.main.async { [weak self] in
             self?.activityIndicator.stopAnimating()
+        }
+    }
+    
+    func displayAlert(with title: String, message: String, firstActionTitle: String, secondActionTitle: String, firstActionCompletion: (()->Void)?) {
+        
+        DispatchQueue.main.async { [weak self] in
+            let refreshAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+            refreshAlert.addAction(UIAlertAction(title: firstActionTitle, style: .default) { _ in
+                firstActionCompletion?()
+            })
+
+            refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+            self?.present(refreshAlert, animated: true, completion: nil)
         }
     }
 }
