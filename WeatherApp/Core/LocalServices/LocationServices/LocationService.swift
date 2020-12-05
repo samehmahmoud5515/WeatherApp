@@ -65,7 +65,7 @@ extension UserLocationService: CLLocationManagerDelegate {
         
         guard let location = locations.first else { return }
 
-        guard location.timestamp.timeIntervalSinceNow < 10 || location.horizontalAccuracy > 0 else {
+        guard location.timestamp.timeIntervalSinceNow < 20 || location.horizontalAccuracy > 0 else {
             print("invalid location received")
             return
         }

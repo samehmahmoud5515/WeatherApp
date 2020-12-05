@@ -52,7 +52,9 @@ class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
             switch result {
             case let .success(city):
                 print(city)
-                self?.citiesForecasts.append(CityForecast(city: City(name: city)))
+                if !(self?.citiesForecasts.contains(where: { $0.city?.name == city }) ?? true) {
+                    self?.citiesForecasts.append(CityForecast(city: City(name: city)))
+                }
             case let .failure(error):
                 print(error)
             }
