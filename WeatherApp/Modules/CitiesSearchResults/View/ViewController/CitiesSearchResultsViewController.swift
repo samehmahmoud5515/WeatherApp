@@ -53,7 +53,6 @@ extension CitiesSearchResultsViewController {
 
 extension CitiesSearchResultsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print("Searching with: " + (searchController.searchBar.text ?? ""))
         let searchText = (searchController.searchBar.text ?? "")
         presenter?.searchCities(with: searchText)
     }
