@@ -54,6 +54,13 @@
 		507CB0DC257B745F005E4554 /* CitiesWeatherForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CB0DA257B745F005E4554 /* CitiesWeatherForecastCell.swift */; };
 		507CB0DD257B745F005E4554 /* CitiesWeatherForecastCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 507CB0DB257B745F005E4554 /* CitiesWeatherForecastCell.xib */; };
 		507CB0E3257B77B1005E4554 /* CityWeatherForecastDetailsProtcols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507CB0E2257B77B1005E4554 /* CityWeatherForecastDetailsProtcols.swift */; };
+		508B3D8F257BB7F70069B83B /* ForecastDetailsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3D83257BB7F70069B83B /* ForecastDetailsEntity.swift */; };
+		508B3D91257BB7F70069B83B /* WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3D85257BB7F70069B83B /* WeatherEntity.swift */; };
+		508B3D93257BB7F70069B83B /* WindEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3D87257BB7F70069B83B /* WindEntity.swift */; };
+		508B3D95257BB7F70069B83B /* ForecastEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3D89257BB7F70069B83B /* ForecastEntity.swift */; };
+		508B3D97257BB7F70069B83B /* CityForecastEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3D8B257BB7F70069B83B /* CityForecastEntity.swift */; };
+		508B3D99257BB7F70069B83B /* CityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3D8D257BB7F70069B83B /* CityEntity.swift */; };
+		508B3DFE257BF19A0069B83B /* CityForecastDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508B3DFD257BF19A0069B83B /* CityForecastDatabaseService.swift */; };
 		A93DF55EA773C22DF717433A /* Pods_WeatherApp_WeatherAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE74CBE23DB14FAA1CB3A2B /* Pods_WeatherApp_WeatherAppUITests.framework */; };
 		D06B09996D31FFF7E15A7F1A /* Pods_WeatherAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691229912E9D87F28D23CC42 /* Pods_WeatherAppTests.framework */; };
 /* End PBXBuildFile section */
@@ -133,6 +140,13 @@
 		507CB0DA257B745F005E4554 /* CitiesWeatherForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesWeatherForecastCell.swift; sourceTree = "<group>"; };
 		507CB0DB257B745F005E4554 /* CitiesWeatherForecastCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CitiesWeatherForecastCell.xib; sourceTree = "<group>"; };
 		507CB0E2257B77B1005E4554 /* CityWeatherForecastDetailsProtcols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherForecastDetailsProtcols.swift; sourceTree = "<group>"; };
+		508B3D83257BB7F70069B83B /* ForecastDetailsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDetailsEntity.swift; sourceTree = "<group>"; };
+		508B3D85257BB7F70069B83B /* WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEntity.swift; sourceTree = "<group>"; };
+		508B3D87257BB7F70069B83B /* WindEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindEntity.swift; sourceTree = "<group>"; };
+		508B3D89257BB7F70069B83B /* ForecastEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastEntity.swift; sourceTree = "<group>"; };
+		508B3D8B257BB7F70069B83B /* CityForecastEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityForecastEntity.swift; sourceTree = "<group>"; };
+		508B3D8D257BB7F70069B83B /* CityEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityEntity.swift; sourceTree = "<group>"; };
+		508B3DFD257BF19A0069B83B /* CityForecastDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityForecastDatabaseService.swift; sourceTree = "<group>"; };
 		54CCF711CE07A085031F7632 /* Pods-WeatherAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherAppTests.debug.xcconfig"; path = "Target Support Files/Pods-WeatherAppTests/Pods-WeatherAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		691229912E9D87F28D23CC42 /* Pods_WeatherAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B619120B8CE919D6CAE11DB5 /* Pods_WeatherApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -420,6 +434,7 @@
 		5053571F257A504E00E0AF1B /* LocalServices */ = {
 			isa = PBXGroup;
 			children = (
+				508B3DB0257BB8600069B83B /* Database */,
 				507CB0BE257B5603005E4554 /* LocationServices */,
 				50535720257A505900E0AF1B /* CitiesService */,
 			);
@@ -666,6 +681,36 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		508B3DB0257BB8600069B83B /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				508B3DFC257BF17E0069B83B /* Service */,
+				508B3DF8257BF1740069B83B /* Entities */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		508B3DF8257BF1740069B83B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				508B3D83257BB7F70069B83B /* ForecastDetailsEntity.swift */,
+				508B3D85257BB7F70069B83B /* WeatherEntity.swift */,
+				508B3D87257BB7F70069B83B /* WindEntity.swift */,
+				508B3D89257BB7F70069B83B /* ForecastEntity.swift */,
+				508B3D8B257BB7F70069B83B /* CityForecastEntity.swift */,
+				508B3D8D257BB7F70069B83B /* CityEntity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		508B3DFC257BF17E0069B83B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				508B3DFD257BF19A0069B83B /* CityForecastDatabaseService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -876,10 +921,13 @@
 			files = (
 				5074D888257AA93000DA063D /* String.swift in Sources */,
 				5053573E257A599400E0AF1B /* CitiesSearchResultsViewController.swift in Sources */,
+				508B3D93257BB7F70069B83B /* WindEntity.swift in Sources */,
+				508B3D91257BB7F70069B83B /* WeatherEntity.swift in Sources */,
 				505356B4257A253000E0AF1B /* WAError.swift in Sources */,
 				507CB0D1257B5B00005E4554 /* Array.swift in Sources */,
 				50535C54257A17A10031B5AB /* WeatherApp.xcdatamodeld in Sources */,
 				505356A1257A243200E0AF1B /* AccessTokenAuthorizable.swift in Sources */,
+				508B3D8F257BB7F70069B83B /* ForecastDetailsEntity.swift in Sources */,
 				505356A7257A243200E0AF1B /* EndPoint.swift in Sources */,
 				5074D84A257A77AC00DA063D /* CitiesSearchResultsProtocols.swift in Sources */,
 				50535722257A507300E0AF1B /* CitiesService.swift in Sources */,
@@ -893,7 +941,11 @@
 				5053568E257A214000E0AF1B /* EnvironmentProtocol.swift in Sources */,
 				505356EF257A38A100E0AF1B /* CitiesWeatherForecastPresenter.swift in Sources */,
 				505356A5257A243200E0AF1B /* RequestHTTPMethod.swift in Sources */,
+				508B3D99257BB7F70069B83B /* CityEntity.swift in Sources */,
+				508B3D95257BB7F70069B83B /* ForecastEntity.swift in Sources */,
+				508B3D97257BB7F70069B83B /* CityForecastEntity.swift in Sources */,
 				50535703257A3B9600E0AF1B /* CititesWeatherForecast.swift in Sources */,
+				508B3DFE257BF19A0069B83B /* CityForecastDatabaseService.swift in Sources */,
 				505356E7257A309900E0AF1B /* ForecastProtocol.swift in Sources */,
 				5074D877257A7B6200DA063D /* CityWeatherForecastDetailsPresenter.swift in Sources */,
 				50535750257A615B00E0AF1B /* CitiesSearchResultsCell.swift in Sources */,
@@ -1091,7 +1143,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1115,7 +1167,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

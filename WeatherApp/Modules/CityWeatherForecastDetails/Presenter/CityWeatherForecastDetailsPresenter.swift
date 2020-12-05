@@ -12,6 +12,7 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
 
     weak var view: CityWeatherForecastDetailsViewProtocol?
     private var cityName: String
+    private var cityForecast: CityForecast?
     private var forecastDatasource = [SectionData]() {
         didSet {
             view?.notifyDataChange()
@@ -24,9 +25,16 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
     }
 
     func viewDidLoad() {
-        if forecastDatasource.isEmpty {
+        let cityForecastObj = CityForecastDatabaseService.shared.fetch(with: cityName)
+        
+        if cityForecastObj == nil {
+            view?.setupAddRightBarButtonItem()
             view?.startActivityIndicator()
             fetchWeatherForecast()
+        } else {
+            buildDatasource(forecastList: cityForecastObj?.list ?? [])
+            cityForecast = cityForecastObj
+            view?.setupDeleteRightBarButtonItem()
         }
     }
     
@@ -34,7 +42,8 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
         fetchWeatherForcast(for: cityName) { [weak self] result in
             switch result {
             case let .success(forecast):
-                self?.buildDatasource(forecastList: forecast)
+                self?.buildDatasource(forecastList: forecast.list ?? [])
+                self?.cityForecast = forecast
             case let .failure(error):
                 print(error)
             }
@@ -52,7 +61,7 @@ class CityWeatherForecastDetailsPresenter: CityWeatherForecastDetailsPresenterPr
                 WeatherForeCastUIModel("max Temp", value: "\(forcast.main?.tempMax ?? 0.0)"),
                 WeatherForeCastUIModel("humidityp", value: "\(forcast.main?.humidity ?? 0)"),
                 WeatherForeCastUIModel("pressure", value: "\(forcast.main?.pressure ?? 0)"),
-                WeatherForeCastUIModel("seaLevel", value: "\(forcast.main?.seaLevel ?? 0)"),
+                //WeatherForeCastUIModel("seaLevel", value: "\(forcast.main?. ?? 0)"),
         ]
     }
 }
@@ -72,6 +81,20 @@ extension CityWeatherForecastDetailsPresenter {
     
     func configureCell(cell: WeatherForecastDetailsCellProtcol, with indexPath: IndexPath) {
         cell.updateUI(with: forecastDatasource[indexPath.section].data[indexPath.row].title, value: forecastDatasource[indexPath.section].data[indexPath.row].value)
+    }
+    
+    func saveCityForecast() {
+        if let cityForecast = cityForecast {
+            CityForecastDatabaseService.shared.save(cityForecast: cityForecast)
+            view?.setupDeleteRightBarButtonItem()
+        }
+    }
+    
+    func deleteCityForecast() {
+        if let city = cityForecast?.city?.name {
+            CityForecastDatabaseService.shared.delete(with: city)
+            view?.setupAddRightBarButtonItem()
+        }
     }
 }
 

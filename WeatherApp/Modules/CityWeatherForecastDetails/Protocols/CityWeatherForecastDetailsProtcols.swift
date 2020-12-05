@@ -12,6 +12,8 @@ protocol CityWeatherForecastDetailsViewProtocol: class {
     func notifyDataChange()
     func stopActivityIndicator()
     func startActivityIndicator()
+    func setupAddRightBarButtonItem() 
+    func setupDeleteRightBarButtonItem()
 }
 
 // MARK: Presenter -
@@ -22,4 +24,6 @@ protocol CityWeatherForecastDetailsPresenterProtocol: ForecastProtocol {
     func title(for section: Int) -> String
     func configureCell(cell: WeatherForecastDetailsCellProtcol, with indexPath: IndexPath)
     func viewDidLoad()
+    func saveCityForecast()
+    func deleteCityForecast()
 }

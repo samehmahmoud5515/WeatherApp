@@ -32,7 +32,6 @@ class CityWeatherForecastDetailsViewController: UIViewController {
         setupUI()
         presenter?.viewDidLoad()
     }
-
 }
 
 extension CityWeatherForecastDetailsViewController {
@@ -48,6 +47,22 @@ extension CityWeatherForecastDetailsViewController {
     
     private func setupTableViewRowHeight() {
         tableView.rowHeight = 44
+    }
+    
+    func setupAddRightBarButtonItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(saveCityForecast))
+    }
+    
+    func setupDeleteRightBarButtonItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(deleteCityForecast))
+    }
+    
+    @objc func saveCityForecast() {
+        presenter?.saveCityForecast()
+    }
+    
+    @objc func deleteCityForecast() {
+        presenter?.deleteCityForecast()
     }
 }
 

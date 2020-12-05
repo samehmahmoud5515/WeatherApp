@@ -6,19 +6,23 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
 
 protocol ForecastProtocol {
-    func fetchWeatherForcast(for city: String, completion: ((Result<[Forecast] , Error>) -> Void)?)
+    func fetchWeatherForcast(for city: String, completion: ((Result<CityForecast, Error>) -> Void)?)
 }
 
 extension ForecastProtocol {
-    func fetchWeatherForcast(for city: String, completion: ((Result<[Forecast] , Error>) -> Void)?) {
+    func fetchWeatherForcast(for city: String, completion: ((Result<CityForecast, Error>) -> Void)?) {
         let service = ForecastService()
         service.fetchWeatherForcast(for: city) { result in
             switch result {
             case let .success(reponse):
                 if let forecastList = reponse.list {
-                    completion?(.success(groupWithDate(forecast: forecastList)))
+                    var updatedForecast = reponse
+                    updatedForecast.list = groupWithDate(forecast: forecastList)
+                    completion?(.success(updatedForecast))
                 }
             case let .failure(error):
                 print(error)
