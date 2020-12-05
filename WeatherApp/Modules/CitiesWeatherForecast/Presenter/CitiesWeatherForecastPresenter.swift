@@ -104,14 +104,15 @@ class CitiesWeatherForecastPresenter: CitiesWeatherForecastPresenterProtocol {
 }
 
 extension CitiesWeatherForecastPresenter {
-    // this func deletes the last item if total number of items exceeds five
+    // this func deletes the item before last if total number of items exceeds five
     private func deleteLastCityForecastIfTotalExccedFive() {
         if citiesForecasts.count > 5 {
-            if let lastCityForecast = citiesForecasts.last, let cityName = lastCityForecast.city?.name {
-                //delete last item from database
+            let lastCityForecast = citiesForecasts[4]
+            if let cityName = lastCityForecast.city?.name {
+                //delete item from database
                 CityForecastDatabaseService.shared.delete(with: cityName)
-                //delete last item from datasource
-                citiesForecasts.removeLast()
+                //delete item from datasource
+                citiesForecasts.remove(at: 4)
             }
         }
     }
