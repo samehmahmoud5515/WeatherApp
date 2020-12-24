@@ -1273,7 +1273,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DTZF3K2TF;
-				INFOPLIST_FILE = /Users/sameh/Documents/Developer/WeatherApp/WeatherApp/Core/Configurations/plist/Info.plist;
+				INFOPLIST_FILE = "WeatherApp/Core/Configurations/plist//info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1298,7 +1298,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8DTZF3K2TF;
-				INFOPLIST_FILE = /Users/sameh/Documents/Developer/WeatherApp/WeatherApp/Core/Configurations/plist/Info.plist;
+				INFOPLIST_FILE = "WeatherApp/Core/Configurations/plist//info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
